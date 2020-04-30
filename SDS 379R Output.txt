@@ -1,0 +1,1198 @@
+﻿. use "\\cnsdisk.austin.utexas.edu\home\mav3556\Desktop\NCHA_UT
+> .dta" 
+
+
+. do "C:\Users\mav3556\SDS379R do-file.do"
+
+
+. clear
+
+
+. use "C:\Users\mav3556\NCHA_UT.dta"
+
+
+. 
+. keep nq63 nq59 nq1 nq37 nq61 nq60 nq56 nq8a5 nq32 nq47 nq46 n
+> q54a nq54b nq54c nq54d nq54e nq54g  
+
+
+. 
+. foreach v of var * { 
+  2.         drop if missing(`v') 
+  3. }
+(7 observations deleted)
+(18 observations deleted)
+(9 observations deleted)
+(0 observations deleted)
+(8 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(0 observations deleted)
+(1 observation deleted)
+(1 observation deleted)
+(5 observations deleted)
+(2 observations deleted)
+(0 observations deleted)
+
+
+. 
+. *DEPENDENT VARIABLE "gpa"
+. drop if nq63==5
+(13 observations deleted)
+
+
+. 
+. gen gpa=1 if nq63==1
+(692 missing values generated)
+
+
+. replace gpa=0 if nq63==2 | nq63== 3 | nq63==4
+(692 real changes made)
+
+
+. 
+. *INDEPENDENT VARIABLES
+. 
+. *       fraternity or sorority affiliation "nq59=fratsor"
+. gen fratsor=1 if nq59==1
+(189 missing values generated)
+
+
+. replace fratsor=0 if nq59==2
+(189 real changes made)
+
+
+. 
+. *       general health "nq1=goodhealth"
+. drop if nq1==6
+(17 observations deleted)
+
+
+. 
+. gen goodhealth=1 if nq1==1 | nq1==2
+(634 missing values generated)
+
+
+. replace goodhealth=0 if nq1==3 | nq1==4 | nq1==5
+(634 real changes made)
+
+
+. 
+. *       level of stress "nq37=highstress"
+. gen highstress=1 if nq37==3 | nq37==2 | nq37==1
+(826 missing values generated)
+
+
+. replace highstress=0 if nq37==5 | nq37==4
+(826 real changes made)
+
+
+. 
+. *       volunteer hours "nq61=volunteer"
+. gen volunteer=1 if nq61==7 | nq61==6 | nq61==5 | nq61==4 | nq
+> 61==3 | nq61==2
+(804 missing values generated)
+
+
+. replace volunteer=0 if nq61==1
+(804 real changes made)
+
+
+. 
+. *       work hours "nq60=work"
+. gen work=1 if nq60==7 | nq60==6 | nq60==5 | nq60==4 | nq60==3
+>  | nq60==2
+(771 missing values generated)
+
+
+. replace work=0 if nq60==1
+(771 real changes made)
+
+
+. 
+. *       relationship status "nq56=relationship"
+. gen relationship=1 if nq56==2 |nq56==3
+(774 missing values generated)
+
+
+. replace relationship=0 if nq56==1
+(774 real changes made)
+
+
+. 
+. *       alcohol consumption "nq8a5=highalc"
+. gen highalc=1 if nq8a5==4 | nq8a5==3 | nq8a5==2 | nq8a5==1
+(510 missing values generated)
+
+
+. replace highalc=0 if nq8a5==8 | nq8a5==7 | nq8a5==6 | nq8a5==
+> 5
+(510 real changes made)
+
+
+. 
+. *       depression diagnosis "nq32=depression"
+. gen depression=1 if nq32==1
+(243 missing values generated)
+
+
+. replace depression=0 if nq32==2
+(243 real changes made)
+
+
+. 
+. *   gender drop criteria, drop trans (for adjusted OR later o
+> n)
+. drop if nq47==3
+(7 observations deleted)
+
+
+. 
+. *       tabs of completed dataset
+. tab fratsor gpa
+
+
+           |          gpa
+   fratsor |         0          1 |     Total
+-----------+----------------------+----------
+         0 |        97         90 |       187 
+         1 |       577        704 |     1,281 
+-----------+----------------------+----------
+     Total |       674        794 |     1,468 
+
+
+. tab goodhealth gpa
+
+
+           |          gpa
+goodhealth |         0          1 |     Total
+-----------+----------------------+----------
+         0 |       349        280 |       629 
+         1 |       325        514 |       839 
+-----------+----------------------+----------
+     Total |       674        794 |     1,468 
+
+
+. tab highstress gpa
+
+
+           |          gpa
+highstress |         0          1 |     Total
+-----------+----------------------+----------
+         0 |       404        417 |       821 
+         1 |       270        377 |       647 
+-----------+----------------------+----------
+     Total |       674        794 |     1,468 
+
+
+. tab volunteer gpa
+
+
+           |          gpa
+ volunteer |         0          1 |     Total
+-----------+----------------------+----------
+         0 |       377        422 |       799 
+         1 |       297        372 |       669 
+-----------+----------------------+----------
+     Total |       674        794 |     1,468 
+
+
+. tab work gpa
+
+
+           |          gpa
+      work |         0          1 |     Total
+-----------+----------------------+----------
+         0 |       383        386 |       769 
+         1 |       291        408 |       699 
+-----------+----------------------+----------
+     Total |       674        794 |     1,468 
+
+
+. tab relationship gpa
+
+
+relationsh |          gpa
+        ip |         0          1 |     Total
+-----------+----------------------+----------
+         0 |       375        394 |       769 
+         1 |       299        400 |       699 
+-----------+----------------------+----------
+     Total |       674        794 |     1,468 
+
+
+. tab highalc gpa
+
+
+           |          gpa
+   highalc |         0          1 |     Total
+-----------+----------------------+----------
+         0 |       248        261 |       509 
+         1 |       426        533 |       959 
+-----------+----------------------+----------
+     Total |       674        794 |     1,468 
+
+
+. tab depression gpa
+
+
+           |          gpa
+depression |         0          1 |     Total
+-----------+----------------------+----------
+         0 |       118        121 |       239 
+         1 |       556        673 |     1,229 
+-----------+----------------------+----------
+     Total |       674        794 |     1,468 
+
+
+. 
+. *       logistic regression comparison (CRUDE)
+. logit gpa fratsor, or
+
+
+Iteration 0:   log likelihood =   -1012.63  
+Iteration 1:   log likelihood = -1011.1032  
+Iteration 2:   log likelihood = -1011.1032  
+
+
+Logistic regression                             Number of obs  
+>    =      1,468
+                                                LR chi2(1)     
+>    =       3.05
+                                                Prob > chi2    
+>    =     0.0806
+Log likelihood = -1011.1032                     Pseudo R2      
+>    =     0.0015
+
+
+---------------------------------------------------------------
+> ---------------
+         gpa | Odds Ratio   Std. Err.      z    P>|z|     [95% 
+> Con                                                          
+>    f. Interval]
+-------------+-------------------------------------------------
+> ---------------
+     fratsor |   1.315001   .2061406     1.75   0.081     .9671
+> 438                                                          
+>        1.787974
+       _cons |   .9278351   .1357952    -0.51   0.609     .6964
+> 524                                                          
+>         1.23609
+---------------------------------------------------------------
+> ---------------
+Note: _cons estimates baseline odds.
+
+
+. logit gpa goodhealth, or
+
+
+Iteration 0:   log likelihood =   -1012.63  
+Iteration 1:   log likelihood = -992.27943  
+Iteration 2:   log likelihood = -992.27621  
+Iteration 3:   log likelihood = -992.27621  
+
+
+Logistic regression                             Number of obs  
+>    =      1,468
+                                                LR chi2(1)     
+>    =      40.71
+                                                Prob > chi2    
+>    =     0.0000
+Log likelihood = -992.27621                     Pseudo R2      
+>    =     0.0201
+
+
+---------------------------------------------------------------
+> ---------------
+         gpa | Odds Ratio   Std. Err.      z    P>|z|     [95% 
+> Con                                                          
+>    f. Interval]
+-------------+-------------------------------------------------
+> ---------------
+  goodhealth |   1.971275   .2110204     6.34   0.000     1.598
+> 188                                                          
+>        2.431455
+       _cons |   .8022923   .0643674    -2.75   0.006     .6855
+> 533                                                          
+>        .9389101
+---------------------------------------------------------------
+> ---------------
+Note: _cons estimates baseline odds.
+
+
+. logit gpa highstress, or
+
+
+Iteration 0:   log likelihood =   -1012.63  
+Iteration 1:   log likelihood = -1008.5488  
+Iteration 2:   log likelihood = -1008.5486  
+Iteration 3:   log likelihood = -1008.5486  
+
+
+Logistic regression                             Number of obs  
+>    =      1,468
+                                                LR chi2(1)     
+>    =       8.16
+                                                Prob > chi2    
+>    =     0.0043
+Log likelihood = -1008.5486                     Pseudo R2      
+>    =     0.0040
+
+
+---------------------------------------------------------------
+> ---------------
+         gpa | Odds Ratio   Std. Err.      z    P>|z|     [95% 
+> Con                                                          
+>    f. Interval]
+-------------+-------------------------------------------------
+> ---------------
+  highstress |   1.352767   .1433521     2.85   0.004      1.09
+> 906                                                          
+>        1.665039
+       _cons |   1.032178   .0720556     0.45   0.650     .9001
+> 875                                                          
+>        1.183522
+---------------------------------------------------------------
+> ---------------
+Note: _cons estimates baseline odds.
+
+
+. logit gpa volunteer, or
+
+
+Iteration 0:   log likelihood =   -1012.63  
+Iteration 1:   log likelihood = -1012.0593  
+Iteration 2:   log likelihood = -1012.0593  
+
+
+Logistic regression                             Number of obs  
+>    =      1,468
+                                                LR chi2(1)     
+>    =       1.14
+                                                Prob > chi2    
+>    =     0.2854
+Log likelihood = -1012.0593                     Pseudo R2      
+>    =     0.0006
+
+
+---------------------------------------------------------------
+> ---------------
+         gpa | Odds Ratio   Std. Err.      z    P>|z|     [95% 
+> Con                                                          
+>    f. Interval]
+-------------+-------------------------------------------------
+> ---------------
+   volunteer |   1.118962   .1177697     1.07   0.286     .9103
+> 895                                                          
+>        1.375319
+       _cons |   1.119363   .0793264     1.59   0.112     .9742
+> 012                                                          
+>        1.286156
+---------------------------------------------------------------
+> ---------------
+Note: _cons estimates baseline odds.
+
+
+. logit gpa work, or
+
+
+Iteration 0:   log likelihood =   -1012.63  
+Iteration 1:   log likelihood = -1007.6964  
+Iteration 2:   log likelihood = -1007.6961  
+Iteration 3:   log likelihood = -1007.6961  
+
+
+Logistic regression                             Number of obs  
+>    =      1,468
+                                                LR chi2(1)     
+>    =       9.87
+                                                Prob > chi2    
+>    =     0.0017
+Log likelihood = -1007.6961                     Pseudo R2      
+>    =     0.0049
+
+
+---------------------------------------------------------------
+> ---------------
+         gpa | Odds Ratio   Std. Err.      z    P>|z|     [95% 
+> Con                                                          
+>    f. Interval]
+-------------+-------------------------------------------------
+> ---------------
+        work |   1.391165    .146496     3.14   0.002     1.131
+> 731                                                          
+>        1.710071
+       _cons |   1.007833   .0726873     0.11   0.914     .8749
+> 794                                                          
+>        1.160858
+---------------------------------------------------------------
+> ---------------
+Note: _cons estimates baseline odds.
+
+
+. logit gpa relationship, or
+
+
+Iteration 0:   log likelihood =   -1012.63  
+Iteration 1:   log likelihood = -1009.9829  
+Iteration 2:   log likelihood = -1009.9829  
+
+
+Logistic regression                             Number of obs  
+>    =      1,468
+                                                LR chi2(1)     
+>    =       5.29
+                                                Prob > chi2    
+>    =     0.0214
+Log likelihood = -1009.9829                     Pseudo R2      
+>    =     0.0026
+
+
+---------------------------------------------------------------
+> ---------------
+         gpa | Odds Ratio   Std. Err.      z    P>|z|     [95% 
+> Con                                                          
+>    f. Interval]
+-------------+-------------------------------------------------
+> ---------------
+relationship |    1.27328   .1338411     2.30   0.022     1.036
+> 214                                                          
+>        1.564581
+       _cons |   1.050667   .0757992     0.69   0.493     .9121
+> 284                                                          
+>        1.210247
+---------------------------------------------------------------
+> ---------------
+Note: _cons estimates baseline odds.
+
+
+. logit gpa highalc, or
+
+
+Iteration 0:   log likelihood =   -1012.63  
+Iteration 1:   log likelihood = -1011.3924  
+Iteration 2:   log likelihood = -1011.3923  
+
+
+Logistic regression                             Number of obs  
+>    =      1,468
+                                                LR chi2(1)     
+>    =       2.48
+                                                Prob > chi2    
+>    =     0.1157
+Log likelihood = -1011.3923                     Pseudo R2      
+>    =     0.0012
+
+
+---------------------------------------------------------------
+> ---------------
+         gpa | Odds Ratio   Std. Err.      z    P>|z|     [95% 
+> Con                                                          
+>    f. Interval]
+-------------+-------------------------------------------------
+> ---------------
+     highalc |   1.188855   .1307052     1.57   0.116      .958
+> 398                                                          
+>        1.474727
+       _cons |   1.052419   .0933258     0.58   0.565     .8845
+> 177                                                          
+>        1.252193
+---------------------------------------------------------------
+> ---------------
+Note: _cons estimates baseline odds.
+
+
+. logit gpa depression, or
+
+
+Iteration 0:   log likelihood =   -1012.63  
+Iteration 1:   log likelihood = -1011.9436  
+Iteration 2:   log likelihood = -1011.9436  
+
+
+Logistic regression                             Number of obs  
+>    =      1,468
+                                                LR chi2(1)     
+>    =       1.37
+                                                Prob > chi2    
+>    =     0.2414
+Log likelihood = -1011.9436                     Pseudo R2      
+>    =     0.0007
+
+
+---------------------------------------------------------------
+> ---------------
+         gpa | Odds Ratio   Std. Err.      z    P>|z|     [95% 
+> Con                                                          
+>    f. Interval]
+-------------+-------------------------------------------------
+> ---------------
+  depression |   1.180421   .1670347     1.17   0.241     .8945
+> 161                                                          
+>        1.557707
+       _cons |   1.025424   .1326687     0.19   0.846     .7957
+> 477                                                          
+>        1.321391
+---------------------------------------------------------------
+> ---------------
+Note: _cons estimates baseline odds.
+
+
+. 
+. *   gender (for adjusted OR)
+. gen female=1 if nq47==1
+(713 missing values generated)
+
+
+. replace female=0 if nq47==2
+(713 real changes made)
+
+
+. 
+. * race/ethnicity (for adjusted OR)
+. gen white=1 if nq54a==1
+(607 missing values generated)
+
+
+. replace white=0 if nq54a==0
+(607 real changes made)
+
+
+. 
+. gen black=1 if nq54b==1
+(1,397 missing values generated)
+
+
+. replace black=0 if nq54b==0
+(1,397 real changes made)
+
+
+. 
+. gen hispanic=1 if nq54c==1
+(1,156 missing values generated)
+
+
+. replace hispanic=0 if nq54c==0
+(1,156 real changes made)
+
+
+. 
+. gen asian=1 if nq54d==1
+(1,120 missing values generated)
+
+
+. replace asian=0 if nq54d==0
+(1,120 real changes made)
+
+
+. 
+. gen multiother=1 if nq54e==1
+(1,444 missing values generated)
+
+
+. replace multiother=1 if nq54g==1
+(28 real changes made)
+
+
+. replace multiother=1 if nq54g==1
+(0 real changes made)
+
+
+. replace multiother=0 if ~(nq54e==1 | nq54g==1 | nq54g==1)
+(1,416 real changes made)
+
+
+. 
+. replace white=0 if hisp==1
+(107 real changes made)
+
+
+. replace black=0 if hisp==1
+(7 real changes made)
+
+
+. replace asian=0 if hisp==1
+(9 real changes made)
+
+
+. replace multiother=0 if hisp==1
+(13 real changes made)
+
+
+. 
+. replace multiother=1 if (white==1 & black==1) | (white==1 & h
+> ispanic==1) | (white==1 & asian==1) | (white==1 & multiother=
+> =1)
+(37 real changes made)
+
+
+. replace white=0 if multiother==1
+(51 real changes made)
+
+
+. 
+. replace multiother=1 if (black==1 & hispanic==1) | (black==1 
+> & asian==1) | (black==1 & multiother==1)
+(2 real changes made)
+
+
+. replace black=0 if multiother==1
+(14 real changes made)
+
+
+. 
+. replace multiother=1 if (asian==1 & multiother==1)
+(0 real changes made)
+
+
+. replace asian=0 if multiother==1
+(37 real changes made)
+
+
+. 
+. replace multiother=1 if white==0 & black==0 & hisp==0 & asian
+> ==0 
+(23 real changes made)
+
+
+. 
+. *   logistic regression comparison(ADJUSTED)
+. logit gpa fratsor female black hispanic asian multiother nq46
+> , or
+
+
+Iteration 0:   log likelihood =   -1012.63  
+Iteration 1:   log likelihood = -971.97641  
+Iteration 2:   log likelihood =  -971.7319  
+Iteration 3:   log likelihood = -971.73188  
+
+
+Logistic regression                             Number of obs  
+>    =      1,468
+                                                LR chi2(7)     
+>    =      81.80
+                                                Prob > chi2    
+>    =     0.0000
+Log likelihood = -971.73188                     Pseudo R2      
+>    =     0.0404
+
+
+---------------------------------------------------------------
+> ---------------
+         gpa | Odds Ratio   Std. Err.      z    P>|z|     [95% 
+> Con                                                          
+>    f. Interval]
+-------------+-------------------------------------------------
+> ---------------
+     fratsor |    1.31367   .2133287     1.68   0.093     .9555
+> 609                                                          
+>        1.805984
+      female |   .9852846   .1074281    -0.14   0.892     .7957
+> 066                                                          
+>         1.22003
+       black |   .5499214   .1649077    -1.99   0.046     .3055
+> 249                                                          
+>        .9898165
+    hispanic |   .4570099   .0648829    -5.52   0.000     .3460
+> 017                                                          
+>        .6036329
+       asian |   .8834588   .1263086    -0.87   0.386     .6675
+> 588                                                          
+>        1.169185
+  multiother |   .7521078   .1632603    -1.31   0.189     .4914
+> 842                                                          
+>        1.150935
+        nq46 |   1.079021   .0145301     5.65   0.000     1.050
+> 915                                                          
+>        1.107879
+       _cons |    .221625   .0747394    -4.47   0.000     .1144
+> 366                                                          
+>        .4292126
+---------------------------------------------------------------
+> ---------------
+Note: _cons estimates baseline odds.
+
+
+. logit gpa goodhealth female black hispanic asian multiother n
+> q46, or
+
+
+Iteration 0:   log likelihood =   -1012.63  
+Iteration 1:   log likelihood = -956.25664  
+Iteration 2:   log likelihood = -955.97995  
+Iteration 3:   log likelihood = -955.97991  
+
+
+Logistic regression                             Number of obs  
+>    =      1,468
+                                                LR chi2(7)     
+>    =     113.30
+                                                Prob > chi2    
+>    =     0.0000
+Log likelihood = -955.97991                     Pseudo R2      
+>    =     0.0559
+
+
+---------------------------------------------------------------
+> ---------------
+         gpa | Odds Ratio   Std. Err.      z    P>|z|     [95% 
+> Con                                                          
+>    f. Interval]
+-------------+-------------------------------------------------
+> ---------------
+  goodhealth |   1.901628   .2096407     5.83   0.000     1.532
+> 098                                                          
+>        2.360284
+      female |   1.006647   .1110275     0.06   0.952     .8109
+> 505                                                          
+>        1.249568
+       black |   .6272429   .1895278    -1.54   0.123     .3469
+> 258                                                          
+>        1.134057
+    hispanic |   .4789623   .0684412    -5.15   0.000     .3619
+> 672                                                          
+>        .6337726
+       asian |   .9393821   .1345423    -0.44   0.662     .7094
+> 627                                                          
+>        1.243813
+  multiother |   .8410083   .1849345    -0.79   0.431      .546
+> 543                                                          
+>        1.294125
+        nq46 |   1.078901   .0144775     5.66   0.000     1.050
+> 896                                                          
+>        1.107653
+       _cons |   .1868289   .0608255    -5.15   0.000     .0987
+> 006                                                          
+>        .3536455
+---------------------------------------------------------------
+> ---------------
+Note: _cons estimates baseline odds.
+
+
+. logit gpa highstress female black hispanic asian multiother n
+> q46, or
+
+
+Iteration 0:   log likelihood =   -1012.63  
+Iteration 1:   log likelihood = -969.01258  
+Iteration 2:   log likelihood = -968.74386  
+Iteration 3:   log likelihood = -968.74382  
+
+
+Logistic regression                             Number of obs  
+>    =      1,468
+                                                LR chi2(7)     
+>    =      87.77
+                                                Prob > chi2    
+>    =     0.0000
+Log likelihood = -968.74382                     Pseudo R2      
+>    =     0.0433
+
+
+---------------------------------------------------------------
+> ---------------
+         gpa | Odds Ratio   Std. Err.      z    P>|z|     [95% 
+> Con                                                          
+>    f. Interval]
+-------------+-------------------------------------------------
+> ---------------
+  highstress |   1.383432   .1517108     2.96   0.003     1.115
+> 868                                                          
+>        1.715152
+      female |   1.000154    .109413     0.00   0.999     .8071
+> 396                                                          
+>        1.239325
+       black |   .5534619   .1661099    -1.97   0.049     .3073
+> 388                                                          
+>         .996685
+    hispanic |   .4703424   .0665637    -5.33   0.000     .3564
+> 105                                                          
+>        .6206943
+       asian |    .890994   .1267035    -0.81   0.417      .674
+> 264                                                          
+>        1.177388
+  multiother |   .7827602   .1702869    -1.13   0.260     .5110
+> 373                                                          
+>         1.19896
+        nq46 |   1.083248   .0147003     5.89   0.000     1.054
+> 816                                                          
+>        1.112447
+       _cons |   .2196938   .0720029    -4.62   0.000     .1155
+> 694                                                          
+>        .4176307
+---------------------------------------------------------------
+> ---------------
+Note: _cons estimates baseline odds.
+
+
+. logit gpa volunteer female black hispanic asian multiother nq
+> 46, or
+
+
+Iteration 0:   log likelihood =   -1012.63  
+Iteration 1:   log likelihood = -971.26292  
+Iteration 2:   log likelihood =  -971.0035  
+Iteration 3:   log likelihood = -971.00347  
+
+
+Logistic regression                             Number of obs  
+>    =      1,468
+                                                LR chi2(7)     
+>    =      83.25
+                                                Prob > chi2    
+>    =     0.0000
+Log likelihood = -971.00347                     Pseudo R2      
+>    =     0.0411
+
+
+---------------------------------------------------------------
+> ---------------
+         gpa | Odds Ratio   Std. Err.      z    P>|z|     [95% 
+> Con                                                          
+>    f. Interval]
+-------------+-------------------------------------------------
+> ---------------
+   volunteer |   1.254852   .1379114     2.07   0.039     1.011
+> 681                                                          
+>        1.556474
+      female |   .9629024    .105343    -0.35   0.730     .7770
+> 689                                                          
+>        1.193177
+       black |   .5456155   .1637193    -2.02   0.043     .3030
+> 207                                                          
+>         .982429
+    hispanic |   .4633927   .0655689    -5.44   0.000      .351
+> 161                                                          
+>        .6114938
+       asian |   .9045276   .1281601    -0.71   0.479        .6
+> 852                                                          
+>         1.19406
+  multiother |    .750485   .1629573    -1.32   0.186     .4903
+> 606                                                          
+>        1.148599
+        nq46 |   1.084177   .0147637     5.94   0.000     1.055
+> 623                                                          
+>        1.113503
+       _cons |   .2292592   .0754116    -4.48   0.000     .1203
+> 195                                                          
+>        .4368351
+---------------------------------------------------------------
+> ---------------
+Note: _cons estimates baseline odds.
+
+
+. logit gpa work female black hispanic asian multiother nq46, o
+> r
+
+
+Iteration 0:   log likelihood =   -1012.63  
+Iteration 1:   log likelihood = -972.76468  
+Iteration 2:   log likelihood = -972.52207  
+Iteration 3:   log likelihood = -972.52205  
+
+
+Logistic regression                             Number of obs  
+>    =      1,468
+                                                LR chi2(7)     
+>    =      80.22
+                                                Prob > chi2    
+>    =     0.0000
+Log likelihood = -972.52205                     Pseudo R2      
+>    =     0.0396
+
+
+---------------------------------------------------------------
+> ---------------
+         gpa | Odds Ratio   Std. Err.      z    P>|z|     [95% 
+> Con                                                          
+>    f. Interval]
+-------------+-------------------------------------------------
+> ---------------
+        work |   1.135718   .1294559     1.12   0.264      .908
+> 334                                                          
+>        1.420024
+      female |   .9721834   .1062061    -0.26   0.796     .7847
+> 996                                                          
+>        1.204308
+       black |   .5689573   .1702169    -1.89   0.059     .3165
+> 357                                                          
+>        1.022673
+    hispanic |   .4681294   .0660963    -5.38   0.000     .3549
+> 628                                                          
+>        .6173749
+       asian |   .9246805   .1312627    -0.55   0.581     .7000
+> 994                                                          
+>        1.221304
+  multiother |   .7597995   .1646772    -1.27   0.205     .4968
+> 343                                                          
+>        1.161947
+        nq46 |   1.075655   .0151091     5.19   0.000     1.046
+> 445                                                          
+>        1.105679
+       _cons |   .2807848   .0898524    -3.97   0.000     .1499
+> 634                                                          
+>         .525729
+---------------------------------------------------------------
+> ---------------
+Note: _cons estimates baseline odds.
+
+
+. logit gpa relationship female black hispanic asian multiother
+>  nq46, or
+
+
+Iteration 0:   log likelihood =   -1012.63  
+Iteration 1:   log likelihood = -973.36031  
+Iteration 2:   log likelihood = -973.11735  
+Iteration 3:   log likelihood = -973.11733  
+
+
+Logistic regression                             Number of obs  
+>    =      1,468
+                                                LR chi2(7)     
+>    =      79.03
+                                                Prob > chi2    
+>    =     0.0000
+Log likelihood = -973.11733                     Pseudo R2      
+>    =     0.0390
+
+
+---------------------------------------------------------------
+> ---------------
+         gpa | Odds Ratio   Std. Err.      z    P>|z|     [95% 
+> Con                                                          
+>    f. Interval]
+-------------+-------------------------------------------------
+> ---------------
+relationship |   1.026755   .1153309     0.24   0.814     .8238
+> 626                                                          
+>        1.279612
+      female |   .9788855   .1069168    -0.20   0.845     .7902
+> 439                                                          
+>        1.212558
+       black |   .5752131   .1721592    -1.85   0.065      .319
+> 939                                                          
+>        1.034166
+    hispanic |   .4680227   .0661168    -5.37   0.000     .3548
+> 289                                                          
+>        .6173263
+       asian |   .9157442   .1297724    -0.62   0.535     .6936
+> 626                                                          
+>        1.208927
+  multiother |   .7665517   .1662425    -1.23   0.220     .5011
+> 191                                                          
+>        1.172579
+        nq46 |   1.079987   .0150333     5.53   0.000      1.05
+> 092                                                          
+>        1.109857
+       _cons |   .2689087   .0858829    -4.11   0.000     .1437
+> 976                                                          
+>        .5028726
+---------------------------------------------------------------
+> ---------------
+Note: _cons estimates baseline odds.
+
+
+. logit gpa highalc female black hispanic asian multiother nq46
+> , or
+
+
+Iteration 0:   log likelihood =   -1012.63  
+Iteration 1:   log likelihood = -968.61024  
+Iteration 2:   log likelihood = -968.29728  
+Iteration 3:   log likelihood =  -968.2972  
+
+
+Logistic regression                             Number of obs  
+>    =      1,468
+                                                LR chi2(7)     
+>    =      88.67
+                                                Prob > chi2    
+>    =     0.0000
+Log likelihood =  -968.2972                     Pseudo R2      
+>    =     0.0438
+
+
+---------------------------------------------------------------
+> ---------------
+         gpa | Odds Ratio   Std. Err.      z    P>|z|     [95% 
+> Con                                                          
+>    f. Interval]
+-------------+-------------------------------------------------
+> ---------------
+     highalc |   1.447442   .1725382     3.10   0.002     1.145
+> 872                                                          
+>        1.828379
+      female |   .9741455   .1064406    -0.24   0.811     .7863
+> 516                                                          
+>        1.206788
+       black |   .5146072   .1548615    -2.21   0.027     .2853
+> 137                                                          
+>        .9281736
+    hispanic |   .4460275   .0636266    -5.66   0.000     .3372
+> 378                                                          
+>        .5899117
+       asian |     .82231   .1200624    -1.34   0.180     .6176
+> 676                                                          
+>        1.094753
+  multiother |   .7033811   .1543125    -1.60   0.109     .4575
+> 604                                                          
+>        1.081267
+        nq46 |   1.088124   .0151454     6.07   0.000     1.058
+> 841                                                          
+>        1.118217
+       _cons |   .1899493   .0652234    -4.84   0.000     .0969
+> 078                                                          
+>        .3723205
+---------------------------------------------------------------
+> ---------------
+Note: _cons estimates baseline odds.
+
+
+. logit gpa depression female black hispanic asian multiother n
+> q46, or
+
+
+Iteration 0:   log likelihood =   -1012.63  
+Iteration 1:   log likelihood = -970.80794  
+Iteration 2:   log likelihood = -970.55058  
+Iteration 3:   log likelihood = -970.55055  
+
+
+Logistic regression                             Number of obs  
+>    =      1,468
+                                                LR chi2(7)     
+>    =      84.16
+                                                Prob > chi2    
+>    =     0.0000
+Log likelihood = -970.55055                     Pseudo R2      
+>    =     0.0416
+
+
+---------------------------------------------------------------
+> ---------------
+         gpa | Odds Ratio   Std. Err.      z    P>|z|     [95% 
+> Con                                                          
+>    f. Interval]
+-------------+-------------------------------------------------
+> ---------------
+  depression |   1.405978   .2105942     2.27   0.023      1.04
+> 829                                                          
+>        1.885713
+      female |   .9973815   .1090287    -0.02   0.981     .8050
+> 304                                                          
+>        1.235692
+       black |   .5539448   .1659787    -1.97   0.049     .3079
+> 077                                                          
+>        .9965806
+    hispanic |   .4600808   .0651536    -5.48   0.000     .3485
+> 721                                                          
+>        .6072613
+       asian |   .8769599   .1253772    -0.92   0.358     .6626
+> 514                                                          
+>        1.160578
+  multiother |   .7613304   .1655577    -1.25   0.210     .4971
+> 326                                                          
+>        1.165934
+        nq46 |   1.085236   .0148045     6.00   0.000     1.056
+> 605                                                          
+>        1.114644
+       _cons |   .1848729   .0665415    -4.69   0.000      .091
+> 306                                                          
+>        .3743236
+---------------------------------------------------------------
+> ---------------
+Note: _cons estimates baseline odds.
+
+
+. 
+. *       logistic regression comparison (FULL MULTIVARIATE MOD
+> EL)
+. logit gpa fratsor goodhealth highstress volunteer work relati
+> onship highalc depression female black hispanic asian multiot
+> her nq46, or
+
+
+Iteration 0:   log likelihood =   -1012.63  
+Iteration 1:   log likelihood = -943.94332  
+Iteration 2:   log likelihood = -943.53836  
+Iteration 3:   log likelihood = -943.53814  
+Iteration 4:   log likelihood = -943.53814  
+
+
+Logistic regression                             Number of obs  
+>    =      1,468
+                                                LR chi2(14)    
+>    =     138.18
+                                                Prob > chi2    
+>    =     0.0000
+Log likelihood = -943.53814                     Pseudo R2      
+>    =     0.0682
+
+
+---------------------------------------------------------------
+> ---------------
+         gpa | Odds Ratio   Std. Err.      z    P>|z|     [95% 
+> Con                                                          
+>    f. Interval]
+-------------+-------------------------------------------------
+> ---------------
+     fratsor |   1.303427   .2195729     1.57   0.116     .9369
+> 031                                                          
+>        1.813337
+  goodhealth |   1.841739   .2091229     5.38   0.000     1.474
+> 271                                                          
+>        2.300801
+  highstress |    1.23394   .1417503     1.83   0.067     .9851
+> 699                                                          
+>        1.545527
+   volunteer |   1.277542   .1440258     2.17   0.030     1.024
+> 268                                                          
+>        1.593444
+        work |    1.21617   .1424105     1.67   0.095     .9667
+> 649                                                          
+>        1.529917
+relationship |   1.033036    .118396     0.28   0.777     .8252
+> 006                                                          
+>        1.293217
+     highalc |   1.457954   .1806138     3.04   0.002     1.143
+> 656                                                          
+>        1.858626
+  depression |   1.171882    .182784     1.02   0.309     .8632
+> 133                                                          
+>        1.590926
+      female |   .9878334   .1113013    -0.11   0.913     .7920
+> 944                                                          
+>        1.231942
+       black |   .4894086   .1508589    -2.32   0.020     .2674
+> 798                                                          
+>        .8954726
+    hispanic |   .4429273   .0646297    -5.58   0.000     .3327
+> 587                                                          
+>        .5895702
+       asian |   .7935579    .120022    -1.53   0.126     .5899
+> 814                                                          
+>         1.06738
+  multiother |   .7448079   .1680289    -1.31   0.192     .4786
+> 443                                                          
+>        1.158979
+        nq46 |   1.082425   .0164278     5.22   0.000     1.050
+> 701                                                          
+>        1.115106
+       _cons |   .0764683   .0314788    -6.25   0.000     .0341
+> 254                                                          
+>        .1713504
+---------------------------------------------------------------
+> ---------------
+Note: _cons estimates baseline odds.
+
+
+. 
+end of do-file
+
+
+.
